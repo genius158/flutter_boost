@@ -118,10 +118,6 @@ public class FlutterBoostPlugin implements MethodChannel.MethodCallHandler, Appl
         mMediator = new PageResultMediator();
     }
 
-    public IFlutterViewContainer findContainerById(String id) {
-        return mManager.findContainerById(id);
-    }
-
     @Override
     public void onMethodCall(MethodCall call, MethodChannel.Result result) {
         if (call.method.equals("getPlatformVersion")) {

@@ -102,13 +102,6 @@ public interface IContainerManager {
     IContainerRecord getLastRecord();
 
     /**
-     * find a container
-     * @param uniqueId
-     * @return
-     */
-    IFlutterViewContainer findContainerById(String uniqueId);
-
-    /**
      * call by flutter side when a container shown or hidden
      * @param old
      * @param now
