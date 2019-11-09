@@ -114,20 +114,20 @@ public class BoostFlutterView extends FlutterView {
     }
   }
 
-  private LifecycleOwner getLifeOwner() {
-    Context context = getContext();
-    while (context instanceof ContextWrapper) {
-      context = ((ContextWrapper) context).getBaseContext();
-    }
+  private LifecycleOwner findLifecycleOwner(Context context) {
     if (context instanceof LifecycleOwner) {
       return (LifecycleOwner) context;
+    } else if (context instanceof ContextWrapper) {
+      return findLifecycleOwner(((ContextWrapper) context).getBaseContext());
+    } else {
+      return null;
     }
-    return null;
   }
 
   public void boostStop() {
-    if (getLifeOwner() != null) {
-      mResumed = getLifeOwner().getLifecycle().getCurrentState() == Lifecycle.State.DESTROYED;
+    LifecycleOwner lifecycleOwner = findLifecycleOwner(getContext());
+    if (lifecycleOwner != null) {
+      mResumed = lifecycleOwner.getLifecycle().getCurrentState() == Lifecycle.State.DESTROYED;
     }
 
     if (mResumed) {
